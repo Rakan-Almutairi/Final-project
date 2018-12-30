@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Product(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
     quantity = models.IntegerField(null=True, blank=True)
@@ -17,6 +18,7 @@ class Product(models.Model):
 
 
 class Category(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -24,6 +26,7 @@ class Category(models.Model):
 
 
 class emp(models.Model):
+    id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     middile_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)

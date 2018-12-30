@@ -5,8 +5,13 @@
 {{ block.super }}
 {% endblock stylesheets %}
 {% block content %}
-<h1>home</h1>
+<p>product Details</p>
+{% for item in product %}
+{{ item.name }}<br>
+{{ item.price }}<br>
+{{ item.category}}<br>
 
+{% endfor %}
 {%endblock content%}
 {% block javascript %}
 <script>

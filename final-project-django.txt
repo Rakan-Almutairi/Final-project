@@ -1,0 +1,17 @@
+1- make virtual environment (final-project-env)
+2- init project (final-project)
+ - migrations - create user - config settings  - set urls 
+3- start app (final-app)
+ - urls - add urls in final-project.urls
+4 - upload project github (mohammedgad0)
+5- create models.
+ - product - category - employees.
+6- add urls.
+7- add views.
+ - login - regestiration - home(products - user information - menu based on permssions) - products( approved) - product details 
+ - add product - edit product - delete product - manager page(products - adpprove or rejected) - view product( manager &        	employee).    
+8- add templates.
+9- add forms.
+ - product
+10- Deploy project(apache)
+ - apache - mysql - wsgi.

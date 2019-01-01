@@ -5,13 +5,7 @@
 {{ block.super }}
 {% endblock stylesheets %}
 {% block content %}
-<p>product Details</p>
-{% for item in product %}
-{{ item.name }}<br>
-{{ item.price }}<br>
-{{ item.category}}<br>
-<a href="{% url 'home:delete-product' item.id %} ">delete the product</a>
-{% endfor %}
+<p>product deleted</p>
 {%endblock content%}
 {% block javascript %}
 <script>

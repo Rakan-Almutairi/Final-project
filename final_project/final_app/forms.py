@@ -8,7 +8,7 @@ class ProductForm(ModelForm):
     # name1 = forms.CharField(max_length= 50)
     class Meta:
         model = Product
-        fields = ('name', 'price', 'category')
+        fields = ('name', 'price', 'category', 'quantity', 'image', 'emp_create')
 
         widgets = {
             'name': TextInput(attrs={'class': 'custom-class', 'placeholder': 'الاسم هنا'})

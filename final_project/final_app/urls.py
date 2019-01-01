@@ -16,10 +16,12 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+app_name = 'home'
+
 urlpatterns = [
     path(r'', views.home, name='home'),
-    path('home', views.home, name='home'),
     path('products', views.products, name='products'),
     path('product/<int:id>/', views.product, name='product'),
     path(r'add-product', views.add_product, name='add-product'),
+    path(r'delete-product/<int:id>', views.delete_product, name='delete-product'),
 ]

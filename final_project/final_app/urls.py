@@ -21,4 +21,5 @@ urlpatterns = [
     path('home', views.home, name='home'),
     path('products', views.products, name='products'),
     path('product/<int:id>/', views.product, name='product'),
+    path(r'add-product', views.add_product, name='add-product'),
 ]

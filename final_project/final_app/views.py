@@ -58,3 +58,4 @@ def update_product(request, id):
         print("this is post page")
     context = {'form': form}
     return render(request, 'delete.html', context)
+

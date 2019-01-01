@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .forms import ProductForm
+from .forms import ProductForm, DeleteProductForm
 from .models import Product, Category, emp
 
 
@@ -38,9 +38,22 @@ def add_product(request):
 
 def delete_product(request, id):
     instance = Product.objects.filter(id=id)
-    form = ProductForm(instance)
+    form = DeleteProductForm(instance)
     if request.method == 'POST':
         form = form(request.POST)
+        instance.comment()
+        instance.delete()
+        print("this is post page")
+    context = {'form': form}
+    return render(request, 'delete.html', context)
+
+
+def delete_update(request, id):
+    instance = Product.objects.filter(id=id)
+    form = DeleteProductForm(instance)
+    if request.method == 'POST':
+        form = form(request.POST)
+        instance.comment()
         instance.delete()
         print("this is post page")
     context = {'form': form}

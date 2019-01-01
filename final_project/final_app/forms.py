@@ -33,3 +33,9 @@ def clean(self):
         product_name.append(item.name)
     if name in product_name:
         self.add_error('name', 'this name is exist')
+
+
+class DeleteProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('name', 'price', 'category', 'quantity', 'image', 'emp_create')

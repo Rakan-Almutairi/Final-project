@@ -12,6 +12,8 @@
         <th scope="col">#</th>
         <th scope="col">Product Name</th>
         <th scope="col">Product price</th>
+        <th>edit</th>
+        <th>delete</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +22,8 @@
         <th scope="row"><a href="{% url 'home:product' data.id %}">{{ data.id }}</a></th>
         <td>{{ data.name }}</td>
         <td>{{ data.price }}</td>
+       <td>{#<a herf ="{%url 'home:edit-product'%}">edit</a>#}</td>
+        <td><a href="{% url 'home:delete-product' data.id %} ">delete the product</a></td>
     </tr>
     {% endfor %}
 

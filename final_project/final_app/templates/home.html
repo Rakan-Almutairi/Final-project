@@ -10,7 +10,8 @@
 {{ item.name }}<br>
 {{ item.price }}<br>
 {{ item.category}}<br>
-<a href="{% url 'home:delete-product' item.id %} ">delete the product</a>
+<a href="{% url 'home:delete-product' item.id %} ">delete the product</a><br>
+<a href="{% url 'home:update-product' item.id%} ">update product</a>
 {% endfor %}
 {%endblock content%}
 {% block javascript %}

@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .forms import ProductForm
-from .models import Product, Category, emp
+from .models import Product
 
 
 # Create your views here.
@@ -29,7 +29,7 @@ def add_product(request):
         if form.is_valid():
             print(form.errors)
             instance = form.save(commit=False)
-            instance.Confirm = 0
+            instance.confirm = 0
             instance.save()
         print("this is post page")
     context = {'form': form}
@@ -37,25 +37,23 @@ def add_product(request):
 
 
 def delete_product(request, id):
-    instance = Product.objects.filter(id=id)
-    form = ProductForm(instance)
+    form = get_object_or_404(Product, id=id)
     if request.method == 'POST':
         form = form(request.POST)
-        instance.comment()
-        instance.delete()
+        form.delete()
         print("this is post page")
     context = {'form': form}
     return render(request, 'delete.html', context)
 
 
 def update_product(request, id):
-    instance = Product.objects.filter(id=id)
-    form = ProductForm(instance)
+    form = ProductForm(instance=Product.objects.filter(id=id).first())
     if request.method == 'POST':
         form = form(request.POST)
-        instance.comment()
-        instance.delete()
+        if form.is_valid():
+            instance = form.save(commit=False)
+            print(form.errors)
+            instance.save()
         print("this is post page")
     context = {'form': form}
-    return render(request, 'delete.html', context)
-
+    return render(request, 'update-product.html', context)

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %} إضافة منتج جديد {% endblock title %}
+{% block title %} تعديل منتج جديد {% endblock title %}
 {% block stylesheets %}
 {{ block.super }}
 {% endblock stylesheets %}
@@ -14,11 +14,11 @@
 </div>
 {% endfor %}
 
-<p>add product</p>
+<p>edit product</p>
 <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" value="Save">Save</button>
+    <button type="submit" value="Update">Update</button>
 </form>
 {% endblock content %}
 

@@ -6,6 +6,12 @@
 {% endblock stylesheets %}
 {% block content %}
 <p>product deleted</p>
+<form method="POST" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" value="Delete">Delete</button>
+</form>
 {%endblock content%}
 {% block javascript %}
 <script>

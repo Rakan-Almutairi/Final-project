@@ -5,7 +5,7 @@ from .models import Product, Category, emp
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    list_display = ['name', 'price', 'quantity']
+    list_display = ['name', 'price', 'quantity', 'confirm']
     list_filter = ['price']
 
 

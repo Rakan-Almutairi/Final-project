@@ -37,12 +37,11 @@ def add_product(request):
 
 
 def delete_product(request, id):
-    form = get_object_or_404(Product, id=id)
+    form = Product.objects.filter(id=id).first()
     if request.method == 'POST':
-        form = form(request.POST)
         form.delete()
         print("this is post page")
-    context = {'form': form}
+    context = {'form': form, 'product': Product.objects.filter(id=id)}
     return render(request, 'delete.html', context)
 
 
@@ -51,9 +50,7 @@ def update_product(request, id):
     if request.method == 'POST':
         form = form(request.POST)
         if form.is_valid():
-            instance = form.save(commit=False)
             print(form.errors)
-            instance.save()
-        print("this is post page")
+            form.save()
     context = {'form': form}
     return render(request, 'update-product.html', context)

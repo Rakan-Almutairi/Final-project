@@ -23,13 +23,12 @@ class ProductForm(ModelForm):
 
         }
 
-
-def clean(self):
-    cleaned_data = super(ProductForm, self).clean()
-    name = cleaned_data.get('name')
-    products = Product.objects.all()
-    product_name = []
-    for item in products:
-        product_name.append(item.name)
-    if name in product_name:
-        self.add_error('name', 'this name is exist')
+    def clean(self):
+        cleaned_data = super(ProductForm, self).clean()
+        name = cleaned_data.get('name')
+        products = Product.objects.all()
+        product_name = []
+        for item in products:
+            product_name.append(item.name)
+        if name in product_name:
+            self.add_error('name', 'this name is used')

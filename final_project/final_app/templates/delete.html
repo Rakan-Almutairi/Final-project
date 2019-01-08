@@ -5,12 +5,17 @@
 {{ block.super }}
 {% endblock stylesheets %}
 {% block content %}
-<p>product deleted</p>
-<form method="POST" action="">
+<p>delete the product </p>
+
+<form method="post" action="">
     {% csrf_token %}
-    {{ form.as_p }}
-    
-    <button type="submit" value="Delete">Delete</button>
+    {% for item in product %}
+    {{ item.name }}<br>
+    {{ item.price }}<br>
+    {{ item.category}}<br>
+    {% endfor %}
+    <button type="submit" value="Delete"> delete</button>
+
 </form>
 {%endblock content%}
 {% block javascript %}

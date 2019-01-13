@@ -1,7 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
-from .forms import ProductForm
+from .forms import ProductForm, SignUpForm
 from .models import Product
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -22,10 +27,11 @@ def product(request, id):
     return render(request, 'home.html', context)
 
 
+@login_required
 def add_product(request):
     form = ProductForm
     if request.method == 'POST':
-        form = form(request.POST)
+        form = form(request.POST, request.FILES)
         if form.is_valid():
             print(form.errors)
             instance = form.save(commit=False)
@@ -36,15 +42,16 @@ def add_product(request):
     return render(request, 'add-product.html', context)
 
 
+@login_required
 def delete_product(request, id):
-    form = Product.objects.filter(id=id).first()
-    if request.method == 'POST':
-        form.delete()
-        print("this is post page")
-    context = {'form': form, 'product': Product.objects.filter(id=id)}
-    return render(request, 'delete.html', context)
+    obj = Product.objects.filter(id=id)
+    obj.delete()
+    return HttpResponseRedirect(reverse('products'))
+    context = {}
+    return render(request, 'delete_product.html', context)
 
 
+@login_required
 def update_product(request, id):
     form = ProductForm(instance=Product.objects.filter(id=id).first())
     if request.method == 'POST':
@@ -54,3 +61,18 @@ def update_product(request, id):
             form.save()
     context = {'form': form}
     return render(request, 'update-product.html', context)
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('product')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})

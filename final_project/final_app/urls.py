@@ -20,9 +20,10 @@ app_name = 'home'
 
 urlpatterns = [
     path(r'', views.home, name='home'),
-    path('products', views.products, name='products'),
+    path('products/', views.products, name='products'),
     path('product/<int:id>/', views.product, name='product'),
-    path(r'add-product', views.add_product, name='add-product'),
+    path(r'add-product/', views.add_product, name='add-product'),
     path(r'delete-product/<int:id>', views.delete_product, name='delete-product'),
-    path(r'update-product/<int:id>', views.update_product, name='update-product')
+    path(r'update-product/<int:id>', views.update_product, name='update-product'),
+    path(r'signup/', views.signup, name='signup'),
 ]

@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 
 # Create your models here.
@@ -12,7 +12,8 @@ class Product(models.Model):
     quantity = models.IntegerField(null=True, blank=True)
     image = models.ImageField(upload_to='product/images', null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    confirm = models.IntegerField(null=True, blank=True)
+    confirm = models.BooleanField(null=False, blank=True, default=False)
+    Created = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.name
@@ -26,18 +27,7 @@ class Category(models.Model):
         return self.name
 
 # class emp(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     first_name = models.CharField(max_length=50, null=True, blank=True)
-#     middile_name = models.CharField(max_length=50, null=True, blank=True)
-#     last_name = models.CharField(max_length=50, null=True, blank=True)
-#     pws = models.CharField(max_length=100, null=True, blank=True)
-#     email = models.CharField(max_length=250, null=True, blank=True)
-#     username = models.CharField(max_length=250, null=True, blank=True)
-#     position = models.IntegerField(null=True, blank=True)
+#     User = models.ForeignKey(User, on_delete=models.CASCADE)
 #
-#     def __str__(self):
-#         return self.first_name
-#
-#     @property
-#     def fullname(self):
-#         return self.first_name + self.middile_name + self.last_name
+#     def in_group(self):
+#         return Group.object.all()

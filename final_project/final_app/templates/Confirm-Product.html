@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %} تعديل منتج جديد {% endblock title %}
+{% block title %} تاكيد المنتج {% endblock title %}
 {% block stylesheets %}
 {{ block.super }}
 {% endblock stylesheets %}
@@ -12,9 +12,15 @@
     </button>
     {{ message }}
 </div>
+{% endfor %}
 
 <p>edit product</p>
 <form method="POST" action="">
+    {% for item in product %}
+    {{ item.name }}<br>
+    {{ item.price }}<br>
+    {{ item.category}}<br>
+    {% endfor %}
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" value="Update">Update</button>

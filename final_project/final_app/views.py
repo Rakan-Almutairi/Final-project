@@ -1,15 +1,17 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, check_group
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
-from .forms import ProductForm, SignUpForm
+from .forms import ProductForm, SignUpForm, confirm
 from .models import Product
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Group
 
 
 # Create your views here.
+
 
 def home(request):
     title = 'Home Page'
@@ -28,21 +30,21 @@ def product(request, id):
 
 
 @login_required
+@check_group('Employee')
 def add_product(request):
     form = ProductForm
     if request.method == 'POST':
         form = form(request.POST, request.FILES)
         if form.is_valid():
             print(form.errors)
-            instance = form.save(commit=False)
-            instance.confirm = 0
-            instance.save()
+            form.save()
         print("this is post page")
     context = {'form': form}
     return render(request, 'add-product.html', context)
 
 
 @login_required
+@check_group('Employee')
 def delete_product(request, id):
     obj = Product.objects.filter(id=id)
     obj.delete()
@@ -52,6 +54,7 @@ def delete_product(request, id):
 
 
 @login_required
+@check_group('Employee')
 def update_product(request, id):
     form = ProductForm(instance=Product.objects.filter(id=id).first())
     if request.method == 'POST':
@@ -61,6 +64,19 @@ def update_product(request, id):
             form.save()
     context = {'form': form}
     return render(request, 'update-product.html', context)
+
+
+@login_required
+@check_group('Manger')
+def Confirm(request, id):
+    form = confirm(instance=Product.objects.filter(id=id).first())
+    if request.method == 'POST':
+        form = form(request.POST)
+        if form.is_valid():
+            print(form.errors)
+            form.save()
+    context = {'form': form, 'product': Product.objects.filter(id=id)}
+    return render(request, 'Confirm-Product.html', context)
 
 
 def signup(request):
@@ -76,3 +92,13 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+# def confirm(request, id):
+#     form = confirm(instance=Product.objects.filter(id=id).first())
+#     if request.method == 'POST':
+#         form = form(request.POST)
+#         if form.is_valid():
+#             print(form.errors)
+#             form.save()
+#     context = {'form': form}
+#     return render(request, 'Confirm-Product.html', context)

@@ -10,7 +10,7 @@ class ProductForm(ModelForm):
     # name1 = forms.CharField(max_length= 50)
     class Meta:
         model = Product
-        fields = ('name', 'price', 'category', 'quantity', 'image')
+        fields = ('name', 'price', 'category', 'quantity', 'image', 'Created')
 
         widgets = {
             'name': TextInput(attrs={'class': 'custom-class', 'placeholder': 'الاسم هنا'})
@@ -44,3 +44,10 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
+
+
+class confirm(ModelForm):
+    # name1 = forms.CharField(max_length= 50)
+    class Meta:
+        model = Product
+        fields = ('confirm',)

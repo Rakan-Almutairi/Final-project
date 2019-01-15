@@ -1,36 +1,42 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block title %} إضافة منتج جديد {% endblock title %}
+{% block title %} المنتجات {% endblock title %}
 {% block stylesheets %}
 {{ block.super }}
 {% endblock stylesheets %}
 {% block content %}
 
+{% load user_tags %}
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th scope="col">#</th>
         <th scope="col">Product Name</th>
         <th scope="col">Product price</th>
-        <th>img</th>
         {% if user.is_authenticated %}
-        <li class="nav-item">
+        {% if request.user|has_group:"Employee" %}
         <th>edit</th>
         <th>delete</th>
+        {% endif %}
+        {% if request.user|has_group:"Manger" %}
+        <th>confirm</th>
+        {% endif %}
         {%endif%}
     </tr>
     </thead>
     <tbody>
     {% for data in products %}
     <tr>
-        <th scope="row"><a href="{% url 'home:product' data.id %}">{{ data.id }}</a></th>
-        <td>{{ data.name }}</td>
+        <th scope="row"><a href="{% url 'home:product' data.id %}">{{ data.name }}</a></th>
         <td>{{ data.price }}</td>
-         <td> <img src="{{data.image}}" height="100" width="100"> </td>
         {% if user.is_authenticated %}
+        {% if request.user|has_group:"Employee" %}
         <td><a href="{% url 'home:update-product' data.id%} ">edit</a></td>
         <td><a href="{% url 'home:delete-product' data.id %} ">delete the product</a></td>
-        {%endif%}
+        {% endif %}
+        {% if request.user|has_group:"Manger" %}
+        <td><a href="{% url 'home:confirm' data.id %} ">confirm</a></td>
+        {% endif %}
+        {% endif %}
     </tr>
     {% endfor %}
 

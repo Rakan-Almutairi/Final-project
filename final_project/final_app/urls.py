@@ -26,4 +26,5 @@ urlpatterns = [
     path(r'delete-product/<int:id>', views.delete_product, name='delete-product'),
     path(r'update-product/<int:id>', views.update_product, name='update-product'),
     path(r'signup/', views.signup, name='signup'),
+    path(r'confirm/<int:id>', views.Confirm, name='confirm'),
 ]
